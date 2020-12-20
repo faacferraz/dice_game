@@ -93,7 +93,7 @@ elif dieNum == 5:
 else:
     print("nO")
 
-for k in range(0, numNum):
+for k in range(numNum):
     print("nH = " + str(nH))
     dictProb[nH]=probList[nH-dieNum]/numComb
     nH=nH+((-1)**k)*(k+1)

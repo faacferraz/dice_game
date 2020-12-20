@@ -12,17 +12,17 @@ def percent(a,b):
 
 
 
-def game(pl1, pl2, rollTimes, dieNum, dieVal, tieCount):
-    player1 = pl1[:]
-    player2 = pl2[:]
+def game(p11, p12, rollTimes, dieNum, dieVal, tieCount):
+    player1 = p11[:]
+    player2 = p12[:]
     p1 = player1[:]
     p2 = player2[:]
     p1Win = p2Win = 0
 
-    for n in range(0, rollTimes):
+    for n in range(rollTimes):
         sumDie = 0
-        for n in range(0,dieNum):
-            sumDie+=random.randint(1,dieVal)
+        for n in range(dieNum):
+            sumDie += random.randint(1, dieVal)
 
         if (sumDie) in player1:
             player1.remove(sumDie)
@@ -61,4 +61,5 @@ def game(pl1, pl2, rollTimes, dieNum, dieVal, tieCount):
 
 player1 = [9, 10, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 18, 19]
 player2 = [9, 10, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 18, 14]
-print(game(player1, player2,100000,4,5,False))
+
+print(game(player1, player2, 10000,4,5,False))
