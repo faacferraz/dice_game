@@ -88,10 +88,11 @@ elif dieNum == 4:
     probList = [1, 4, 10, 20, 35, 56, 80, 104, 125, 140, 146, 140, 125, 104, 80, 56, 35, 20, 10, 4, 1]
     nH=14
 elif dieNum == 5:
-    probList = [1,5,15,35,70,126,205,305,420,540,651,735,780,780,735,651,540,420,305,205,126,70,35,15,5,1]
+    probList = [1, 5, 15, 35, 70, 126, 205, 305, 420, 540, 651, 735, 780, 780, 735, 651, 540, 420, 305, 205, 126, 70,
+                35, 15, 5, 1]
     nH=17
 else:
-    print("nO")
+    print("NO")
 
 for k in range(numNum):
     print("nH = " + str(nH))
@@ -175,26 +176,7 @@ while not best_found:
 
 
 
-    indW -= 1  # So that now, when we switch the elements in the loop to get the next option
-                # of the list to see if that is better
-
-# Start with Middle
-# best = False
-# while not best:
-#   indW = -1
-#
-#       Switch list[indW] by first element, creating newList
-#       if newList worse:
-#           Middle is ideal
-#           break
-#      elif m1 better:
-#           Make Middle = newList
-#           indW-=1   #So we can get the second to last element of the list, since we just switched the last for first
-#
-#  !!! A variable to keep track of how far into the first elements I switch and I think we're donezo
-#      Maybe even (-1)*indW would work, as in going up to that point8
-#
-#
+    indW -= 1
 
 
 
