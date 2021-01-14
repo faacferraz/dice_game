@@ -28,18 +28,14 @@ class Simulate:
                                       len(self.combinations_list))],  key=lambda x: x[1], reverse=True)
         print(sorted_combinations)
 
-        current_list = [sorted_combinations[i][0] for i in range(self.num_picks)]
 
-        # if len(sorted_combinations) >= self.num_picks:
-        #     current_list = [sorted_combinations[i][0] for i in range(self.num_picks)]
-        # else:
-        #     current_list = []
-        #     ind = 0
-        #     while len(current_list) < self.num_picks:
-        #         if ind == len(sorted_combinations):
-        #             ind = 0
-        #         current_list.append(sorted_combinations[ind][0])
-        #         ind+=1
+        if len(sorted_combinations) >= self.num_picks:
+            current_list = [sorted_combinations[i][0] for i in range(self.num_picks)]
+        else:
+            current_list = [sorted_combinations[i][0] for i in range(len(sorted_combinations))]
+
+            for _ in range(self.num_picks - len(sorted_combinations)):
+                current_list.append(sorted_combinations[-1][0])
 
         print(current_list)
 
@@ -59,12 +55,13 @@ class Simulate:
 
                 self.simulate_dice_rolls(player0, player1)
 
-                print("Sorted Current:", sorted(current_list))
-                print("Sorted New:    ", sorted(new_list))
                 print("Current:", current_list)
                 print("New:    ", new_list)
-                print("Count Current:", player0)
-                print("Count New:    ", player1)
+                print("Sorted Current:", sorted(current_list))
+                print("Sorted New:    ", sorted(new_list))
+                # print("Count Current:", player0)
+                # print("Count New:    ", player1)
+                print()
 
                 # self.remove_equal_picks(player0, player1)
                 # print("Reduced Current:", player0)
@@ -208,7 +205,7 @@ class Simulate:
 if __name__ == '__main__':
     start_time = time.time()
 
-    sim = Simulate(num_dice=2, num_picks=15, dice_val=6, dice_rolls=100000)
+    sim = Simulate(num_dice=2, num_picks=15, dice_val=6, dice_rolls=10000)
 
     #rt = sim.simulate_dice_rolls(a, b)
 
