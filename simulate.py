@@ -112,8 +112,7 @@ class Simulate:
                 p1[0] -= 1
                 p1[sum_dice] -= 1
 
-            # if p0 == p1:
-            if p0[0] == p1[0]:
+            if p0 == p1:
                 s = " ".join(str(n) for n in num_seq)
                 if s not in self.seqT_dict:
                     self.seqT_dict[s] = 0
