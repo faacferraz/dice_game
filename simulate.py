@@ -4,7 +4,8 @@ import time
 
 class Simulate:
 
-    def __init__(self, num_dice: int, num_picks: int, dice_val: int = 6, dice_rolls: int = 100000) -> None:
+    def __init__(self, num_dice: int, num_picks: int, dice_val: int = 6, dice_rolls: tuple = (10_000, 1_000_000),
+                 print_games: bool = True) -> None:
         self.num_dice = num_dice
         self.num_picks = num_picks
         self.dice_val = dice_val
@@ -15,6 +16,7 @@ class Simulate:
         self.seq1_dict = {}
         self.seqT_dict = {}
         self.simulated_rolls = []
+        self.print_games = print_games
 
     def find_ideal_picks(self) -> list:
         """
@@ -50,22 +52,28 @@ class Simulate:
                 new_list = current_list.copy()
                 new_list[-indB] = sorted_combinations[ind][0]
 
+                # Skip this game if we are trying to swap a sum for one with the same probability
+
                 player0 = self.convert_to_count_array(current_list)
                 player1 = self.convert_to_count_array(new_list)
 
-                self.simulate_dice_rolls(player0, player1)
-
+                print("indB=-{}. ind={}".format(indB, ind))
                 print("Current:", current_list)
                 print("New:    ", new_list)
                 print("Sorted Current:", sorted(current_list))
                 print("Sorted New:    ", sorted(new_list))
-                # print("Count Current:", player0)
-                # print("Count New:    ", player1)
-                print()
+                print("Count Current:", player0)
+                print("Count New:    ", player1)
 
                 # self.remove_equal_picks(player0, player1)
                 # print("Reduced Current:", player0)
                 # print("Reduced New:    ", player1)
+
+                if self.combinations_list[current_list[-indB]] == self.combinations_list[new_list[-indB]] and player0[current_list[-indB]] == player1[new_list[-indB]]:
+                    print("Equal probability... Skipping this game.")
+                    continue
+
+                self.simulate_dice_rolls(player0, player1)
 
                 results = [0, 0, 0]
                 for _ in range(self.dice_rolls):
@@ -205,7 +213,7 @@ class Simulate:
 if __name__ == '__main__':
     start_time = time.time()
 
-    sim = Simulate(num_dice=2, num_picks=15, dice_val=6, dice_rolls=10000)
+    sim = Simulate(num_dice=5, num_picks=22, dice_val=6, dice_rolls=10000)
 
     #rt = sim.simulate_dice_rolls(a, b)
 
