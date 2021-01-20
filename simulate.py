@@ -49,6 +49,7 @@ class Simulate:
 
         if self.print_games:
             print(sorted_combinations)
+            print(sum([i[1] for i in sorted_combinations]))
             print(current_list)
 
         indB = 0
@@ -162,7 +163,7 @@ class Simulate:
     def convert_to_count_array(self, l: list) -> list:
         """
         Convert list l to be an array rt where rt[i] = l.count(i).
-        Since rt[0] would always be 0, we use rt[0] to represent the sum of all rt[i] for i>0.
+        Since rt[0] would always be 0 (for 2+ dice), we use rt[0] to represent the sum of all rt[i] for i>0.
         :param l: Original list of picks
         :return: Converted count array
         """
@@ -219,7 +220,7 @@ class Simulate:
 if __name__ == '__main__':
     start_time = time.time()
 
-    sim = Simulate(num_dice=5, num_picks=22, dice_val=6, dice_rolls=(10_000, 10_000))
+    sim = Simulate(num_dice=2, num_picks=10, dice_val=6, dice_rolls=(10_000, 1000_000))
 
     #rt = sim.simulate_dice_rolls(a, b)
 
