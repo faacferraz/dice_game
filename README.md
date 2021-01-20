@@ -11,7 +11,8 @@ Since the initial was very simple, all I had to do was find the best combination
 
 To better understand the problem, it is very important to understand the probabilities that revolve around it. By this, I mean the probabilities of getting each of the sums. So, let us understand where they come from.
 
-IMAGE1
+![Two 6-sided dice combinations (with color)](https://github.com/faacferraz/dice_game/blob/main/img/two_6sided_combinations_colored.jpg?raw=true)
+
 
 By reading this table, we can get a better understanding of how likely each of the sums is to occur. 
 Since there are a total of 36 permutations and the sum of 2 only happens once, we say P(2) = 1/36 = 2.78%. 
@@ -28,7 +29,8 @@ For this problem (5 picks, 2 dice, 6-sided), the obvious option is [5, 6, 7, 8, 
 Now, it obviously makes no sense to switch any of these numbers with a number that has a lower probability of happening (such as 12). Also, if we do want to switch a number, the logical one to remove is one with the lowest probabilities, that is, 5 or 9. Also very clearly, the first best option to switch one of these numbers by is 7, as it has the highest probability of occurring, which might be enough to overcome the problem of repeating values (and losing permutations of results).
 So, all I did was simulate this game to compare the combinations [5, 6, 7, 8, 9] and [5, 6, 7, 8, 7].
 
-IMAGE2
+![Results between \[5, 6, 7, 8, 9\] and \[5, 6, 7, 8, 7\]](https://github.com/faacferraz/dice_game/blob/main/img/result1.jpg?raw=true)
+
 
 Since the initial combination is better than the best other option, it is clearly the ideal combination of picks for this game.
 _____
@@ -45,7 +47,7 @@ For example, [5, 6, 7, 8, 9] is written [7, 8, 6, 9, 5].
 This way I can easily keep track of which element I am currently trying to substitute (simply the last element on the list which I have not yet found a better number).
 The logic behind this process is simplified in the figure:
 
-IMAGE 3 - SUBSTITUTION LOGIC
+![Substitution Logic](https://github.com/faacferraz/dice_game/blob/main/img/substitution_logic.jpg?raw=true)
 
 Where 0 will be the index of the sum with the highest probability and the lower the value, the higher the probability. So, we will first switch 7, the last (and worst) element, with 0, the best one. If 0 “loses”, that is, if the combination with 7 is better than the one with a second 0, then we can already finish and say [0, 1, 2, 3, 4, 5, 6, 7] is the best combination. This is because there is no other logical option to substitute 7. Since the element 0 is the most probable sum and there isn’t more 0’s than other elements in the list, so no other option would be better than either 7 or 0 for this case.
 Now, if 0 “wins”, we will make the last element of the list equal to 0 and start substituting the second to last, 6. For this, since we already have two 0’s in our list, we must start also test 1, as getting a “second 1” might be more beneficial than a “third 0” because of it has more permutations than three 0's and also has a higher probability than 6. So, we check to see if 0 is better than 6. If yes, switch 6 by 0 and check if 1 is better than that. This order follows the greyscale in the figure above from darker to lighter, until we get an index that is not substituted by any other.
@@ -72,8 +74,4 @@ A quick optimization I made was the way I determined ties. Originally, I would c
 This was the change with the most drastic impact in the run time of my program. Originally, I would simulate each dice individually and sum up the results to check between lists. The change I made was to simulate multiple dice rolls in advance using the probability of each sum occurring. I was already calculating these probabilities in order to properly sort the original array according to the probabilities of the sum (as described in the section "Solution of the Original Game"). Therefore, with these probabilities, I could very quickly simulate a multitude of dice sum results using random.choices (simulating multiple ones at once is much faster than one at a time) and simply add them to a queue. What I could also do with this method is skip results that weren't in either one of the lists, as they would not have an impact in the game.
 
 ##### Using a Variable Number of Dice Rolls
-<<<<<<< HEAD
 For every "match" between two lists, I would simulate X games (usually 100,000 games) so that I would have a large enough number of results to be confident in the winner between the 2 lists. However, some of the matches could be easily determined with fewer games, as one of the lists was much better than the other. Therefore, I introduced 3 variables: _min_dice_rolls_, _max_dice_rolls_ and _decisive_win_percentage_. This way I would simulate _min_dice_rolls_ (e.g. 10,000) games and if one player had won more than _decisive_win_percentage_ (e.g. 60%) of the games, then that would be enough to determine the winner. If the percentage was less that _decisive_win_percentage_, I would then simulate 9x more games than what I had previsouly simulated (so that if I had rolled 10,000 games so far, I would simulate a total of 10,000+90,000=100,000) and check the percentage again until the total number of dice rolls is greater or equal to _max_dice_rolls_.
-=======
-For every "match" between two lists, I would simulate X games (usually 100,000 games) so that I would have a large enough number of results to be confident in the winner between the 2 lists. However, some of the matches could be easily determined with fewer games, as one of the lists was much better than the other. Therefore, I introduced 3 variables: _min_dice_rolls_, _max_dice_rolls_ and _decisive_win_percentage_. This way I would simulate _min_dice_rolls_ (e.g. 10,000) games and if one player had won more than _decisive_win_percentage_ (e.g. 60%) of the games, then that would be enough to determine the winner. If the percentage was less that _decisive_win_percentage_, I would then simulate 9x more games than what I had previsouly simulated (so that if I had rolled 10,000 games so far, I would simulate a total of 10,000+90,000=100,000) and check the percentage again until the total number of dice rolls is greater or equal to _max_dice_rolls_.
->>>>>>> b5b061e2d6fe147cc0ec1c883f6b9e8618e64b95
