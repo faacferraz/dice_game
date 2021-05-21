@@ -11,7 +11,7 @@ Since the original game was very simple, all I had to do was find the best combi
 
 To better understand the problem, it is very important to understand the probabilities that revolve around it. By this, I mean the probabilities of getting each of the sums. So, let us understand where they come from.
 
-![Two 6-sided dice combinations (with color)](https://github.com/faacferraz/dice_game/blob/main/img/two_6sided_combinations_colored.jpg?raw=true)
+![Two 6-sided dice combinations (with color)](https://github.com/fab0i/dice_game/blob/main/img/two_6sided_combinations_colored.jpg?raw=true)
 
 
 By reading this table, we can get a better understanding of how likely each of the sums is to occur. 
@@ -29,7 +29,7 @@ For this problem (5 picks, 2 dice, 6-sided), the obvious option is [5, 6, 7, 8, 
 Now, it obviously makes no sense to switch any of these numbers with a number that has a lower probability of happening (such as 12). Also, if we do want to switch a number, the logical one to remove is one with the lowest probabilities, that is, 5 or 9. Also very clearly, the first best option to switch one of these numbers by is 7, as it has the highest probability of occurring, which might be enough to overcome the problem of repeating values (and losing permutations of results).
 So, all I did was simulate this game to compare the combinations [5, 6, 7, 8, 9] and [5, 6, 7, 8, 7].
 
-![Results between \[5, 6, 7, 8, 9\] and \[5, 6, 7, 8, 7\]](https://github.com/faacferraz/dice_game/blob/main/img/result1.jpg?raw=true)
+![Results between \[5, 6, 7, 8, 9\] and \[5, 6, 7, 8, 7\]](https://github.com/fab0i/dice_game/blob/main/img/result1.jpg?raw=true)
 
 
 Since the initial combination is better than the best other option, it is clearly the ideal combination of picks for this game.
@@ -47,7 +47,7 @@ For example, [5, 6, 7, 8, 9] is written [7, 8, 6, 9, 5].
 This way I can easily keep track of which element I am currently trying to substitute (simply the last element on the list which I have not yet found a better number).
 The logic behind this process is simplified in the figure:
 
-![Substitution Logic](https://github.com/faacferraz/dice_game/blob/main/img/substitution_logic.jpg?raw=true)
+![Substitution Logic](https://github.com/fab0i/dice_game/blob/main/img/substitution_logic.jpg?raw=true)
 
 Where 0 will be the index of the sum with the highest probability and the lower the value, the higher the probability. So, we will first switch 7, the last (and worst) element, with 0, the best one. If 0 “loses”, that is, if the combination with 7 is better than the one with a second 0, then we can already finish and say [0, 1, 2, 3, 4, 5, 6, 7] is the best combination. This is because there is no other logical option to substitute 7. Since the element 0 is the most probable sum and there isn’t more 0’s than other elements in the list, so no other option would be better than either 7 or 0 for this case.
 Now, if 0 “wins”, we will make the last element of the list equal to 0 and start substituting the second to last, 6. For this, since we already have two 0’s in our list, we must start also test 1, as getting a “second 1” might be more beneficial than a “third 0” because of it has more permutations than three 0's and also has a higher probability than 6. So, we check to see if 0 is better than 6. If yes, switch 6 by 0 and check if 1 is better than that. This order follows the greyscale in the figure above from darker to lighter, until we get an index that is not substituted by any other.
